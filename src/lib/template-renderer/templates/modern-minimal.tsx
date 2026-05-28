@@ -186,74 +186,61 @@ function ModernMinimalSectionContent({
   if (section.type === 'work_experience') {
     const items = (content as unknown as WorkExperienceContent).items || [];
     return (
-      <div className="relative">
-        {/* Vertical timeline line */}
-        <div className="absolute top-2 bottom-2 w-[2px]" style={{ background: DIVIDER, left: '118px' }} />
-        {items.map((item, idx) => (
-          <div key={item.id} className="relative flex gap-4 mb-4 last:mb-0">
-            {/* Timeline dot */}
-            <div
-              className="absolute top-1.5 z-10 h-[6px] w-[6px] rounded-full"
-              style={{ background: ACCENT, left: '115px' }}
-            />
-            {/* Date column */}
-            <div className="shrink-0 pr-2" style={{ width: '110px' }}>
-              <span className="text-xs" style={{ color: TEXT_SECONDARY, whiteSpace: 'nowrap' }}>
+      <div className="space-y-4">
+        {items.map((item) => (
+          <div key={item.id}>
+            <div className="flex items-baseline gap-x-4">
+              <span className="text-sm shrink-0" style={{ color: TEXT_SECONDARY, whiteSpace: 'nowrap' }}>
                 {formatDate(item.startDate, item.endDate, item.current, lang)}
               </span>
-            </div>
-            {/* Content */}
-            <div className="min-w-0 flex-1 pl-4">
-              <div className="flex items-baseline justify-between gap-x-2">
-                <span className="text-sm font-semibold" style={{ color: TEXT_PRIMARY }}>
-                  {item.position}
+              <span className="text-sm font-semibold" style={{ color: TEXT_SECONDARY }}>
+                {item.position}
+              </span>
+              {item.company && (
+                <span className="text-sm shrink-0 ml-auto" style={{ color: TEXT_SECONDARY }}>
+                  {item.company}
                 </span>
-                {item.company && (
-                  <span className="text-sm shrink-0" style={{ color: ACCENT }}>
-                    {item.company}
-                  </span>
-                )}
-              </div>
-              {item.location && (
-                <p className="text-xs" style={{ color: TEXT_SECONDARY }}>{item.location}</p>
-              )}
-              {item.description && (
-                <p className="mt-1 text-sm" style={{ color: TEXT_SECONDARY }}>
-                  <span className="font-medium" style={{ color: TEXT_PRIMARY }}>{lang === 'zh' ? '职责' : 'Responsibilities'}:</span>{' '}
-                  <span dangerouslySetInnerHTML={{ __html: md(item.description) }} />
-                </p>
-              )}
-              {item.technologies?.length > 0 && (
-                <div className="mt-1.5 flex flex-wrap gap-1.5">
-                  {item.technologies.map((t, i) => (
-                    <span
-                      key={i}
-                      className="rounded-full px-2 py-0.5 text-xs"
-                      style={{ background: TECH_BG, color: ACCENT, border: `1px solid ${TECH_BORDER}` }}
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              )}
-              {item.highlights?.length > 0 && (
-                <div className="mt-1.5">
-                  <p className="text-xs font-medium mb-0.5" style={{ color: TEXT_PRIMARY }}>
-                    {lang === 'zh' ? '主要成就' : 'Key Achievements'}:
-                  </p>
-                  <ul className="list-disc pl-4">
-                    {item.highlights.map((h, i) => (
-                      <li
-                        key={i}
-                        className="text-sm"
-                        style={{ color: TEXT_SECONDARY }}
-                        dangerouslySetInnerHTML={{ __html: md(h) }}
-                      />
-                    ))}
-                  </ul>
-                </div>
               )}
             </div>
+            {item.location && (
+              <p className="text-xs mt-0.5" style={{ color: TEXT_SECONDARY }}>{item.location}</p>
+            )}
+            {item.description && (
+              <p className="mt-1 text-sm" style={{ color: TEXT_SECONDARY }}>
+                <span className="font-medium" style={{ color: TEXT_PRIMARY }}>{lang === 'zh' ? '职责' : 'Responsibilities'}:</span>{' '}
+                <span dangerouslySetInnerHTML={{ __html: md(item.description) }} />
+              </p>
+            )}
+            {item.technologies?.length > 0 && (
+              <div className="mt-1.5 flex flex-wrap gap-1.5">
+                {item.technologies.map((t, i) => (
+                  <span
+                    key={i}
+                    className="rounded-full px-2 py-0.5 text-xs"
+                    style={{ background: TECH_BG, color: ACCENT, border: `1px solid ${TECH_BORDER}` }}
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+            )}
+            {item.highlights?.length > 0 && (
+              <div className="mt-1.5">
+                <p className="text-xs font-medium mb-0.5" style={{ color: TEXT_PRIMARY }}>
+                  {lang === 'zh' ? '主要成就' : 'Key Achievements'}:
+                </p>
+                <ul className="list-disc pl-4">
+                  {item.highlights.map((h, i) => (
+                    <li
+                      key={i}
+                      className="text-sm"
+                      style={{ color: TEXT_SECONDARY }}
+                      dangerouslySetInnerHTML={{ __html: md(h) }}
+                    />
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         ))}
       </div>
@@ -572,28 +559,24 @@ function buildModernMinimalSectionHtml(
         ? `<div style="margin-top:6px"><p style="font-size:11px;font-weight:500;color:${TEXT_PRIMARY};margin:0 0 2px">${lang === 'zh' ? '主要成就' : 'Key Achievements'}:</p><ul style="margin:0 0 0 16px;padding:0;list-style-type:disc">${it.highlights.map((h: string) => `<li style="font-size:13px;color:${TEXT_SECONDARY}">${md(h)}</li>`).join('')}</ul></div>`
         : '';
       const marginBottom = idx < items.length - 1 ? 'margin-bottom:16px' : '';
-      return `<div style="position:relative;display:flex;gap:16px;${marginBottom}">
-        <div style="position:absolute;left:115px;top:6px;z-index:10;width:6px;height:6px;border-radius:50%;background:${ACCENT}"></div>
-        <div style="width:110px;flex-shrink:0;padding-right:8px">
-          <span style="font-size:11px;color:${TEXT_SECONDARY};white-space:nowrap">${esc(formatDate(it.startDate, it.endDate, it.current, lang))}</span>
+      return `<div style="${marginBottom}">
+        <div style="display:flex;align-items:baseline;gap:16px">
+          <span style="font-size:13px;color:${TEXT_SECONDARY};flex-shrink:0;white-space:nowrap">${esc(formatDate(it.startDate, it.endDate, it.current, lang))}</span>
+          <span style="font-size:13px;font-weight:600;color:${TEXT_SECONDARY}">${esc(it.position)}</span>
+          ${it.company ? `<span style="font-size:13px;color:${TEXT_SECONDARY};flex-shrink:0;margin-left:auto">${esc(it.company)}</span>` : ''}
         </div>
-        <div style="flex:1;min-width:0;padding-left:16px">
-          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
-            <span style="font-size:14px;font-weight:600;color:${TEXT_PRIMARY}">${esc(it.position)}</span>
-            ${it.company ? `<span style="font-size:13px;color:${ACCENT};flex-shrink:0">${esc(it.company)}</span>` : ''}
-          </div>
-          ${it.location ? `<p style="font-size:11px;color:${TEXT_SECONDARY};margin:2px 0 0">${esc(it.location)}</p>` : ''}
-          ${it.description ? `<p style="font-size:13px;color:${TEXT_SECONDARY};margin:4px 0 0"><span style="font-weight:500;color:${TEXT_PRIMARY}">${lang === 'zh' ? '职责' : 'Responsibilities'}:</span> ${md(it.description)}</p>` : ''}
-          ${techs}${highlights}
-        </div>
+        ${it.location ? `<p style="font-size:11px;color:${TEXT_SECONDARY};margin:2px 0 0">${esc(it.location)}</p>` : ''}
+        ${it.description ? `<p style="font-size:13px;color:${TEXT_SECONDARY};margin:4px 0 0"><span style="font-weight:500;color:${TEXT_PRIMARY}">${lang === 'zh' ? '职责' : 'Responsibilities'}:</span> ${md(it.description)}</p>` : ''}
+        ${techs}${highlights}
       </div>`;
     }).join('');
     return `<div data-section style="padding:0 32px 24px">
       <div style="border-top:1px solid ${DIVIDER};margin-bottom:16px"></div>
       ${sectionHeader}
-      <div style="position:relative">
-        <div style="position:absolute;left:118px;top:8px;bottom:8px;width:2px;background:${DIVIDER}"></div>
+      <div style="display:flex;flex-direction:column;gap:16px">
         ${itemsHtml}
+      </div>
+    </div>`;
       </div>
     </div>`;
   }
