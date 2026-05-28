@@ -188,28 +188,28 @@ function ModernMinimalSectionContent({
     return (
       <div className="relative">
         {/* Vertical timeline line */}
-        <div className="absolute left-[88px] top-2 bottom-2 w-[2px]" style={{ background: DIVIDER }} />
+        <div className="absolute top-2 bottom-2 w-[2px]" style={{ background: DIVIDER, left: '118px' }} />
         {items.map((item, idx) => (
           <div key={item.id} className="relative flex gap-4 mb-4 last:mb-0">
             {/* Timeline dot */}
             <div
-              className="absolute left-[85px] top-1.5 z-10 h-[6px] w-[6px] rounded-full"
-              style={{ background: ACCENT }}
+              className="absolute top-1.5 z-10 h-[6px] w-[6px] rounded-full"
+              style={{ background: ACCENT, left: '115px' }}
             />
             {/* Date column */}
-            <div className="w-20 shrink-0 pr-2">
-              <span className="text-xs" style={{ color: TEXT_SECONDARY }}>
+            <div className="shrink-0 pr-2" style={{ width: '110px' }}>
+              <span className="text-xs" style={{ color: TEXT_SECONDARY, whiteSpace: 'nowrap' }}>
                 {formatDate(item.startDate, item.endDate, item.current, lang)}
               </span>
             </div>
             {/* Content */}
             <div className="min-w-0 flex-1 pl-4">
-              <div className="flex flex-wrap items-baseline gap-x-2">
+              <div className="flex items-baseline justify-between gap-x-2">
                 <span className="text-sm font-semibold" style={{ color: TEXT_PRIMARY }}>
                   {item.position}
                 </span>
                 {item.company && (
-                  <span className="text-sm" style={{ color: ACCENT }}>
+                  <span className="text-sm shrink-0" style={{ color: ACCENT }}>
                     {item.company}
                   </span>
                 )}
@@ -573,14 +573,14 @@ function buildModernMinimalSectionHtml(
         : '';
       const marginBottom = idx < items.length - 1 ? 'margin-bottom:16px' : '';
       return `<div style="position:relative;display:flex;gap:16px;${marginBottom}">
-        <div style="position:absolute;left:85px;top:6px;z-index:10;width:6px;height:6px;border-radius:50%;background:${ACCENT}"></div>
-        <div style="width:80px;flex-shrink:0;padding-right:8px;white-space:nowrap">
-          <span style="font-size:11px;color:${TEXT_SECONDARY}">${esc(formatDate(it.startDate, it.endDate, it.current, lang))}</span>
+        <div style="position:absolute;left:115px;top:6px;z-index:10;width:6px;height:6px;border-radius:50%;background:${ACCENT}"></div>
+        <div style="width:110px;flex-shrink:0;padding-right:8px">
+          <span style="font-size:11px;color:${TEXT_SECONDARY};white-space:nowrap">${esc(formatDate(it.startDate, it.endDate, it.current, lang))}</span>
         </div>
         <div style="flex:1;min-width:0;padding-left:16px">
-          <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:nowrap">
-            <span style="font-size:14px;font-weight:600;color:${TEXT_PRIMARY};white-space:nowrap">${esc(it.position)}</span>
-            ${it.company ? `<span style="font-size:13px;color:${ACCENT};white-space:nowrap">${esc(it.company)}</span>` : ''}
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
+            <span style="font-size:14px;font-weight:600;color:${TEXT_PRIMARY}">${esc(it.position)}</span>
+            ${it.company ? `<span style="font-size:13px;color:${ACCENT};flex-shrink:0">${esc(it.company)}</span>` : ''}
           </div>
           ${it.location ? `<p style="font-size:11px;color:${TEXT_SECONDARY};margin:2px 0 0">${esc(it.location)}</p>` : ''}
           ${it.description ? `<p style="font-size:13px;color:${TEXT_SECONDARY};margin:4px 0 0"><span style="font-weight:500;color:${TEXT_PRIMARY}">${lang === 'zh' ? '职责' : 'Responsibilities'}:</span> ${md(it.description)}</p>` : ''}
@@ -592,7 +592,7 @@ function buildModernMinimalSectionHtml(
       <div style="border-top:1px solid ${DIVIDER};margin-bottom:16px"></div>
       ${sectionHeader}
       <div style="position:relative">
-        <div style="position:absolute;left:88px;top:8px;bottom:8px;width:2px;background:${DIVIDER}"></div>
+        <div style="position:absolute;left:118px;top:8px;bottom:8px;width:2px;background:${DIVIDER}"></div>
         ${itemsHtml}
       </div>
     </div>`;
