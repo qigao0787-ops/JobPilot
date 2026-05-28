@@ -569,7 +569,7 @@ function buildModernMinimalSectionHtml(
         ? `<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px">${it.technologies.map((t) => `<span style="background:${TECH_BG};color:${ACCENT};border:1px solid ${TECH_BORDER};border-radius:9999px;padding:2px 8px;font-size:11px">${esc(t)}</span>`).join('')}</div>`
         : '';
       const highlights = it.highlights?.length
-        ? `<div style="margin-top:6px"><p style="font-size:11px;font-weight:500;color:${TEXT_PRIMARY};margin:0 0 2px">${lang === 'zh' ? '主要成就' : 'Key Achievements'}:</p><ul style="margin:0 0 0 16px;padding:0">${buildHighlights(it.highlights, `font-size:13px;color:${TEXT_SECONDARY}`)}</ul></div>`
+        ? `<div style="margin-top:6px"><p style="font-size:11px;font-weight:500;color:${TEXT_PRIMARY};margin:0 0 2px">${lang === 'zh' ? '主要成就' : 'Key Achievements'}:</p><ul style="margin:0 0 0 16px;padding:0;list-style-type:disc">${buildHighlights(it.highlights, `font-size:13px;color:${TEXT_SECONDARY}`)}</ul></div>`
         : '';
       const marginBottom = idx < items.length - 1 ? 'margin-bottom:16px' : '';
       return `<div style="position:relative;display:flex;gap:16px;${marginBottom}">
@@ -606,7 +606,7 @@ function buildModernMinimalSectionHtml(
         ? `<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">${it.technologies.map((t) => `<span style="background:${TECH_BG};color:${ACCENT};border:1px solid ${TECH_BORDER};border-radius:9999px;padding:2px 8px;font-size:11px">${esc(t)}</span>`).join('')}</div>`
         : '';
       const highlights = it.highlights?.length
-        ? `<ul style="margin:8px 0 0 16px;padding:0">${buildHighlights(it.highlights, `font-size:13px;color:${TEXT_SECONDARY}`)}</ul>`
+        ? `<ul style="margin:8px 0 0 16px;padding:0;list-style-type:disc">${buildHighlights(it.highlights, `font-size:13px;color:${TEXT_SECONDARY}`)}</ul>`
         : '';
       const linkHtml = it.url ? `<a href="${esc(it.url)}" style="color:${ACCENT};text-decoration:none;font-size:12px">↗</a>` : '';
       return `<div style="border:1px solid ${DIVIDER};border-radius:12px;padding:16px;background:white">
@@ -656,7 +656,7 @@ function buildModernMinimalSectionHtml(
         <span style="font-size:11px;color:${TEXT_SECONDARY}">${formatDate(it.startDate, it.endDate, false, lang)}</span>
       </div>
       ${it.gpa ? `<p style="font-size:11px;color:${TEXT_SECONDARY};margin:2px 0 0">GPA: ${esc(it.gpa)}</p>` : ''}
-      ${it.highlights?.length ? `<ul style="margin:4px 0 0 16px;padding:0">${buildHighlights(it.highlights, `font-size:13px;color:${TEXT_SECONDARY}`)}</ul>` : ''}
+      ${it.highlights?.length ? `<ul style="margin:4px 0 0 16px;padding:0;list-style-type:disc">${buildHighlights(it.highlights, `font-size:13px;color:${TEXT_SECONDARY}`)}</ul>` : ''}
     </div>`).join('');
     return `<div data-section style="padding:0 32px 24px">
       <div style="border-top:1px solid ${DIVIDER};margin-bottom:16px"></div>
