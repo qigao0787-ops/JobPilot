@@ -189,16 +189,16 @@ function ModernMinimalSectionContent({
       <div className="space-y-4">
         {items.map((item) => (
           <div key={item.id}>
-            <div className="flex items-baseline justify-between">
+            <div className="flex items-baseline">
               {item.company && (
-                <span className="text-sm" style={{ color: TEXT_SECONDARY }}>
+                <span className="text-sm" style={{ color: TEXT_SECONDARY, width: '180px', flexShrink: 0 }}>
                   {item.company}
                 </span>
               )}
-              <span className="text-sm" style={{ color: TEXT_SECONDARY }}>
+              <span className="text-sm flex-1 text-center" style={{ color: TEXT_SECONDARY }}>
                 {item.position}
               </span>
-              <span className="text-sm" style={{ color: TEXT_SECONDARY, whiteSpace: 'nowrap' }}>
+              <span className="text-sm" style={{ color: TEXT_SECONDARY, whiteSpace: 'nowrap', width: '130px', flexShrink: 0, textAlign: 'right' }}>
                 {formatDate(item.startDate, item.endDate, item.current, lang)}
               </span>
             </div>
@@ -351,16 +351,16 @@ function ModernMinimalSectionContent({
       <div className="space-y-3">
         {items.map((item) => (
           <div key={item.id}>
-            <div className="flex items-baseline justify-between">
+            <div className="flex items-baseline">
               {item.institution && (
-                <span className="text-sm" style={{ color: TEXT_SECONDARY }}>
+                <span className="text-sm" style={{ color: TEXT_SECONDARY, width: '180px', flexShrink: 0 }}>
                   {item.institution}
                 </span>
               )}
-              <span className="text-sm" style={{ color: TEXT_SECONDARY }}>
+              <span className="text-sm flex-1 text-center" style={{ color: TEXT_SECONDARY }}>
                 {item.field ? `${item.field}（${item.degree}）` : item.degree}
               </span>
-              <span className="shrink-0 text-sm" style={{ color: TEXT_SECONDARY, whiteSpace: 'nowrap' }}>
+              <span className="text-sm" style={{ color: TEXT_SECONDARY, whiteSpace: 'nowrap', width: '130px', flexShrink: 0, textAlign: 'right' }}>
                 {formatDate(item.startDate, item.endDate, false, lang)}
               </span>
             </div>
@@ -560,10 +560,10 @@ function buildModernMinimalSectionHtml(
         : '';
       const marginBottom = idx < items.length - 1 ? 'margin-bottom:16px' : '';
       return `<div style="${marginBottom}">
-        <div style="display:flex;align-items:baseline;justify-content:space-between">
-          ${it.company ? `<span style="font-size:13px;color:${TEXT_SECONDARY}">${esc(it.company)}</span>` : ''}
-          <span style="font-size:13px;color:${TEXT_SECONDARY}">${esc(it.position)}</span>
-          <span style="font-size:13px;color:${TEXT_SECONDARY};white-space:nowrap">${esc(formatDate(it.startDate, it.endDate, it.current, lang))}</span>
+        <div style="display:flex;align-items:baseline">
+          ${it.company ? `<span style="font-size:13px;color:${TEXT_SECONDARY};width:180px;flex-shrink:0">${esc(it.company)}</span>` : ''}
+          <span style="font-size:13px;color:${TEXT_SECONDARY};flex:1;text-align:center">${esc(it.position)}</span>
+          <span style="font-size:13px;color:${TEXT_SECONDARY};white-space:nowrap;width:130px;flex-shrink:0;text-align:right">${esc(formatDate(it.startDate, it.endDate, it.current, lang))}</span>
         </div>
         ${it.location ? `<p style="font-size:11px;color:${TEXT_SECONDARY};margin:2px 0 0">${esc(it.location)}</p>` : ''}
         ${it.description ? `<p style="font-size:13px;color:${TEXT_SECONDARY};margin:4px 0 0"><span style="font-weight:500;color:${TEXT_PRIMARY}">${lang === 'zh' ? '职责' : 'Responsibilities'}:</span> ${md(it.description)}</p>` : ''}
@@ -629,10 +629,10 @@ function buildModernMinimalSectionHtml(
   if (section.type === 'education') {
     const items = (content as unknown as EducationContent).items || [];
     const itemsHtml = items.map((it) => `<div>
-      <div style="display:flex;align-items:baseline;justify-content:space-between">
-        ${it.institution ? `<span style="font-size:13px;color:${TEXT_SECONDARY}">${esc(it.institution)}</span>` : ''}
-        <span style="font-size:13px;color:${TEXT_SECONDARY}">${it.field ? esc(`${it.field}（${it.degree}）`) : esc(it.degree)}</span>
-        <span style="font-size:13px;color:${TEXT_SECONDARY};white-space:nowrap">${formatDate(it.startDate, it.endDate, false, lang)}</span>
+      <div style="display:flex;align-items:baseline">
+        ${it.institution ? `<span style="font-size:13px;color:${TEXT_SECONDARY};width:180px;flex-shrink:0">${esc(it.institution)}</span>` : ''}
+        <span style="font-size:13px;color:${TEXT_SECONDARY};flex:1;text-align:center">${it.field ? esc(`${it.field}（${it.degree}）`) : esc(it.degree)}</span>
+        <span style="font-size:13px;color:${TEXT_SECONDARY};white-space:nowrap;width:130px;flex-shrink:0;text-align:right">${formatDate(it.startDate, it.endDate, false, lang)}</span>
       </div>
       ${it.gpa ? `<p style="font-size:11px;color:${TEXT_SECONDARY};margin:2px 0 0">GPA: ${esc(it.gpa)}</p>` : ''}
       ${it.highlights?.length ? `<ul style="margin:4px 0 0 16px;padding:0;list-style-type:disc">${it.highlights.map((h: string) => `<li style="font-size:13px;color:${TEXT_SECONDARY}">${md(h)}</li>`).join('')}</ul>` : ''}
