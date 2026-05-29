@@ -577,8 +577,6 @@ function buildModernMinimalSectionHtml(
         ${itemsHtml}
       </div>
     </div>`;
-      </div>
-    </div>`;
   }
 
   // Projects
